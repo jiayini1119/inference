@@ -174,12 +174,12 @@ class ModelFamily:
         save_path = self.generate_cache_path(model_size_in_billions, quantization)
 
         if os.path.exists(save_path):
-            if os.path.getsize(save_path) == expected_size:
-                return save_path
-            else:
-                warnings.warn(
-                    "Model size doesn't match, try to update it...", RuntimeWarning
-                )
+            # if os.path.getsize(save_path) == expected_size:
+            return save_path
+        # else:
+        #     warnings.warn(
+        #         "Model size doesn't match, try to update it...", RuntimeWarning
+        #     )
 
         save_dir = os.path.join(XINFERENCE_CACHE_DIR, full_name)
         if not os.path.exists(save_dir):
@@ -205,10 +205,10 @@ class ModelFamily:
                     ),
                 )
 
-            # verify the integrity.
-            if os.path.getsize(save_path) != expected_size:
-                os.remove(save_path)
-                raise RuntimeError(f"Failed to download {full_name} from {url}")
+            # # verify the integrity.
+            # if os.path.getsize(save_path) != expected_size:
+            #     os.remove(save_path)
+            #     raise RuntimeError(f"Failed to download {full_name} from {url}")
         except:
             if os.path.exists(save_path):
                 os.remove(save_path)
